@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CAPTCHA Validation</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>🔐 CAPTCHA Validation</h1>
+
+    {% if message %}
+      <div class="message {% if success %}success{% else %}error{% endif %}">
+        {{ message }}
+      </div>
+    {% endif %}
+
+    <div class="captcha-box">
+      <div class="captcha-text">{{ captcha }}</div>
+    </div>
+
+    <form method="POST" class="captcha-form">
+      <input type="text" name="captcha_input" placeholder="Enter CAPTCHA here" required />
+      <button type="submit">✅ Validate</button>
+    </form>
+  </div>
+</body>
+</html>

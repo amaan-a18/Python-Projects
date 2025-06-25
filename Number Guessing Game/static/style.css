@@ -1,0 +1,90 @@
+body {
+    background: #0f0f0f;
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 3rem;
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input[type="number"] {
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid #00ffff;
+    border-radius: 10px;
+    background: #1f1f1f;
+    color: #fff;
+    width: 200px;
+    font-size: 1rem;
+}
+
+button {
+    margin: 5px;
+    padding: 12px 24px;
+    background: #00ffff;
+    border: none;
+    border-radius: 8px;
+    color: #000;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 0 15px #00ffff;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #00cccc;
+    box-shadow: 0 0 25px #00ffff;
+}
+
+.difficulty-form h2 {
+    margin: 10px;
+}
+
+.message {
+    margin-top: 15px;
+    font-size: 1.3rem;
+    color: #ffeb3b;
+    text-shadow: 0 0 8px #ffeb3b;
+}
+
+.error {
+    color: red;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.history, .info {
+    margin-top: 10px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.reset-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #ff00ff;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    box-shadow: 0 0 15px #ff00ff;
+}
+
+.reset-link:hover {
+    background: #ff33cc;
+}

@@ -1,0 +1,80 @@
+body {
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    color: #ffffff;
+}
+
+h1 {
+    margin-top: 40px;
+    font-size: 3rem;
+    color: #fff;
+    text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff;
+}
+
+.message {
+    margin: 20px;
+    font-size: 1.5rem;
+    color: #ffeb3b;
+    text-shadow: 0 0 8px #ffeb3b;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.cell, button.cell {
+    width: 100px;
+    height: 100px;
+    font-size: 2.5rem;
+    border-radius: 12px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 100px;
+    background: linear-gradient(145deg, #333, #222);
+    border: 2px solid #00ffff;
+    color: #00ffff;
+    box-shadow: 0 0 10px #00ffff;
+    transition: all 0.3s ease-in-out;
+}
+
+button.cell:hover {
+    background: linear-gradient(145deg, #00ffff, #0099cc);
+    color: #000;
+    box-shadow: 0 0 15px #00ffff, 0 0 25px #00ffff;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.cell.filled {
+    background: linear-gradient(145deg, #ff00ff, #800080);
+    color: #fff;
+    border: 2px solid #ff66ff;
+    box-shadow: 0 0 10px #ff00ff;
+}
+
+.reset-button {
+    margin-top: 30px;
+    padding: 12px 30px;
+    font-size: 1rem;
+    background: #ff00ff;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+    transition: all 0.3s ease-in-out;
+}
+
+.reset-button:hover {
+    background: #ff33cc;
+    box-shadow: 0 0 20px #ff33cc, 0 0 30px #ff33cc;
+    cursor: pointer;
+}

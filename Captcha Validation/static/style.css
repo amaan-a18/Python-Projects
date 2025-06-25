@@ -1,0 +1,95 @@
+body {
+  background: #0d0d0d;
+  font-family: 'Segoe UI', sans-serif;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  text-align: center;
+  background: #1a1a1a;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px #00ffff;
+  animation: pulse 4s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 20px #00ffff; }
+  50% { box-shadow: 0 0 40px #00ccff; }
+  100% { box-shadow: 0 0 20px #00ffff; }
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+.captcha-box {
+  margin: 20px auto;
+  padding: 20px;
+  background: #333;
+  border: 2px dashed #00ffff;
+  width: 250px;
+  border-radius: 10px;
+}
+
+.captcha-text {
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 5px;
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+.captcha-form input {
+  padding: 12px;
+  width: 80%;
+  margin-top: 15px;
+  font-size: 1rem;
+  border: 2px solid #00ffff;
+  border-radius: 8px;
+  background: #111;
+  color: #00ffff;
+}
+
+.captcha-form button {
+  margin-top: 15px;
+  padding: 12px 25px;
+  background: #00ffff;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.captcha-form button:hover {
+  background: #00ccff;
+  box-shadow: 0 0 15px #00ccff;
+}
+
+.message {
+  margin: 15px 0;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+}
+
+.success {
+  background-color: #003300;
+  color: #00ff99;
+  box-shadow: 0 0 10px #00ff99;
+}
+
+.error {
+  background-color: #330000;
+  color: #ff4d4d;
+  box-shadow: 0 0 10px #ff4d4d;
+}

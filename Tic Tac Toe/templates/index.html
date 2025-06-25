@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tic Tac Toe - Neon</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Tic Tac Toe</h1>
+
+    {% if message %}
+        <div class="message">{{ message }}</div>
+    {% else %}
+        <div class="message">Player Turn: <strong>{{ turn }}</strong></div>
+    {% endif %}
+
+    <div class="board">
+        {% for i in range(3) %}
+            {% for j in range(3) %}
+                {% if board[i][j] == "" %}
+                    <form method="post" style="display:inline;">
+                        <input type="hidden" name="row" value="{{ i }}">
+                        <input type="hidden" name="col" value="{{ j }}">
+                        <button type="submit" class="cell"></button>
+                    </form>
+                {% else %}
+                    <div class="cell filled">{{ board[i][j] }}</div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    <form action="/reset">
+        <button type="submit" class="reset-button">🔄 Reset Game</button>
+    </form>
+</body>
+</html>
