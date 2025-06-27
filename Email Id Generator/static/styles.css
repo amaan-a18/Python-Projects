@@ -1,0 +1,81 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #232526, #414345);
+  background-image: url('https://www.transparenttextures.com/patterns/black-paper.png');
+  color: #f4f4f4;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 500px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+
+h1 {
+  color: #ffcc00;
+  margin-bottom: 0.5rem;
+}
+
+.desc {
+  font-size: 1rem;
+  color: #ccc;
+  margin-bottom: 1.5rem;
+}
+
+.card {
+  background: #2d2d2d;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px #00000080;
+}
+
+label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #eee;
+  text-align: left;
+}
+
+input, select {
+  width: 100%;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 8px;
+  margin-top: 0.3rem;
+  background: #333;
+  color: #fff;
+}
+
+button {
+  background: #ff6f61;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+button:hover {
+  background: #ff3e30;
+}
+
+.result-box {
+  margin-top: 1.5rem;
+  font-size: 1.3rem;
+  color: #00e676;
+  font-weight: bold;
+  word-break: break-word;
+}

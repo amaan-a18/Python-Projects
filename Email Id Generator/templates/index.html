@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Email ID Generator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <h1>📧 Email ID Generator</h1>
+    <p class="desc">Generate multiple random email IDs from your name</p>
+
+    <div class="card">
+      <form method="POST">
+        <label>First Name:</label>
+        <input type="text" name="first_name" placeholder="e.g., Rahul" required />
+
+        <label>Last Name:</label>
+        <input type="text" name="last_name" placeholder="e.g., Mishra" required />
+
+        <label>Select Domain:</label>
+        <select name="domain">
+          {% for dom in domains %}
+            <option value="{{ dom }}">{{ dom }}</option>
+          {% endfor %}
+        </select>
+
+        <label>How many email IDs to generate?</label>
+        <input type="number" name="count" min="1" max="20" placeholder="e.g., 5" required />
+
+        <button type="submit">Generate Emails</button>
+      </form>
+
+      {% if emails %}
+      <div class="result-box">
+        {% for email in emails %}
+          <div>{{ email }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

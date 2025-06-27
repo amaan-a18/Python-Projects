@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>⚡ Neon URL Shortener</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <div class="glow-container">
+    <h1>⚡URL SHORTENER</h1>
+    <form method="POST">
+      <input type="url" name="original_url" placeholder="Enter long URL..." required />
+      <button type="submit">Generate</button>
+    </form>
+
+    {% if short_url %}
+    <div class="result-box">
+      <span>Your Short URL:</span><br />
+      <a href="{{ short_url }}" target="_blank">{{ short_url }}</a>
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>

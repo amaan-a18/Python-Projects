@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hangman Web</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="game-container">
+
+    <h1>
+        🎯 Web Hangman
+    </h1>
+    <p class="subtitle">Guess the word before the stickman hangs!</p>
+
+    <canvas id="gallow" width="300" height="300"></canvas>
+
+    <div class="word" id="wordDisplay">Loading...</div>
+
+    <div class="letters" id="letters"></div>
+
+    <div id="message" class="message"></div>
+
+    <button id="restartBtn">🔄 Restart Game</button>
+  </div>
+
+  <script>
+    let word = "";
+    let guessed = [];
+    let wrongGuesses = 0;
+
+    const maxGuesses = 6;
+    const wordDisplay = document.getElementById("wordDisplay");
+    const lettersDiv = document.getElementById("letters");
+    const message = document.getElementById("message");
+    const canvas = document.getElementById("gallow");
+    const ctx = canvas.getContext("2d");
+
+    function drawStickman(stage) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.strokeStyle = "#333";
+      ctx.lineWidth = 3;
+
+      if (stage >= 1) ctx.strokeRect(50, 250, 100, 10);  // Base
+      if (stage >= 2) ctx.beginPath(), ctx.moveTo(100, 250), ctx.lineTo(100, 50), ctx.stroke();  // Pole
+      if (stage >= 3) ctx.beginPath(), ctx.lineTo(180, 50), ctx.stroke();  // Beam
+      if (stage >= 4) ctx.beginPath(), ctx.lineTo(180, 80), ctx.stroke();  // Rope
+      if (stage >= 5) ctx.beginPath(), ctx.arc(180, 100, 20, 0, Math.PI * 2), ctx.stroke();  // Head
+      if (stage >= 6) ctx.beginPath(), ctx.moveTo(180, 120), ctx.lineTo(180, 170), ctx.stroke();  // Body
+      if (stage >= 7) ctx.beginPath(), ctx.moveTo(180, 130), ctx.lineTo(160, 160), ctx.stroke();  // Left Arm
+      if (stage >= 8) ctx.beginPath(), ctx.moveTo(180, 130), ctx.lineTo(200, 160), ctx.stroke();  // Right Arm
+      if (stage >= 9) ctx.beginPath(), ctx.moveTo(180, 170), ctx.lineTo(160, 200), ctx.stroke();  // Left Leg
+      if (stage >= 10) ctx.beginPath(), ctx.moveTo(180, 170), ctx.lineTo(200, 200), ctx.stroke(); // Right Leg
+    }
+
+    function displayWord() {
+      let display = "";
+      for (let char of word) {
+        display += guessed.includes(char) ? char + " " : "_ ";
+      }
+      wordDisplay.textContent = display.trim();
+    }
+
+    function handleGuess(letter, btn) {
+      if (!word.includes(letter)) {
+        wrongGuesses++;
+        drawStickman(wrongGuesses + 4);
+      }
+      guessed.push(letter);
+      btn.disabled = true;
+      displayWord();
+
+      if (!wordDisplay.textContent.includes("_")) {
+        message.textContent = "🎉 You won!";
+        disableButtons();
+      } else if (wrongGuesses >= maxGuesses) {
+        message.textContent = `💀 You lost! Word was: ${word}`;
+        disableButtons();
+      }
+    }
+
+    function disableButtons() {
+      document.querySelectorAll(".letter-btn").forEach(btn => btn.disabled = true);
+    }
+
+    function createLetterButtons() {
+      lettersDiv.innerHTML = "";
+      for (let i = 65; i <= 90; i++) {
+        let btn = document.createElement("button");
+        btn.textContent = String.fromCharCode(i);
+        btn.classList.add("letter-btn");
+        btn.onclick = () => handleGuess(btn.textContent, btn);
+        lettersDiv.appendChild(btn);
+      }
+    }
+
+    async function newGame() {
+      const res = await fetch("/new-word");
+      const data = await res.json();
+      word = data.word;
+      guessed = [];
+      wrongGuesses = 0;
+      drawStickman(0);
+      displayWord();
+      message.textContent = "";
+      createLetterButtons();
+    }
+
+    document.getElementById("restartBtn").onclick = newGame;
+
+    newGame();
+  </script>
+</body>
+</html>
