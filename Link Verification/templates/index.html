@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Broken Link Verifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="background-texture"></div>
+    <div class="container">
+        <h1>🔗 Broken Link Verifier</h1>
+        <form method="POST">
+            <input type="text" name="url" placeholder="Enter a URL..." required>
+            <button type="submit">Verify Links</button>
+        </form>
+        <div id="results">
+            {% for line in results %}
+                <p>{{ line }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
