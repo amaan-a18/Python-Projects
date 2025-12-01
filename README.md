@@ -31,6 +31,7 @@ These are great for learning, portfolio-building, or just to play around with di
 | **Hang-man Game** | Classic hangman game in the console. |
 | **Link Verification** | Check if a URL is valid / reachable. |
 | **Magic Square Solver** | Generates a valid 4×4 magic square using constraint programming. |
+| **Map Coloring** | Solves region-coloring problems using CSP rules so that no adjacent areas share the same color. |
 | **Number Guessing Game** | Guess the number game with feedback. |
 | **Password Generator** | Generates strong, random passwords. |
 | **QR Code Generator** | Create QR codes from text or URLs. |
