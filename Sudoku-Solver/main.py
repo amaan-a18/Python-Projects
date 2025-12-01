@@ -1,181 +1,117 @@
-from random import sample
-import random
+"""The sudoku is represented as follows:
+1. The empty cells are represented as "?"
+2. The confirmed cells are represented with a number.
 
+The sudoku which we will be testing is as follows:
 
-def generate_board(num):
-    base = 3
-    side = base * base
+? ? ? 8 ? 1 ? ? ?
 
-    def pattern(r, c):
-        return (base * (r % base) + r // base + c) % side
+? ? ? ? ? ? 4 3 ?
 
-    def shuffle(s):
-        return sample(s, len(s))
+5 ? ? ? ? ? ? ? ?
 
-    # randomize rows, col, num
-    rBase = range(base)
-    rows = [g * base + r for g in shuffle(rBase) for r in shuffle(rBase)]
-    cols = [g * base + c for g in shuffle(rBase) for c in shuffle(rBase)]
-    nums = shuffle(range(1, base * base + 1))
+? ? ? ? 7 ? 8 ? ?
 
-    # randomized baseline
-    board_tmp = [[nums[pattern(r, c)] for c in cols] for r in rows]
+? ? ? ? ? ? 1 ? ?
 
-    # print full board
-    print("=======full board========")
-    print_board(board_tmp)
+? 2 ? ? 3 ? ? ? ?
 
-    # remove numbers of the board
-    squares = side * side
-    if num == 0:
-        # default number of empty slots
-        empties = squares * 3 // 4
+6 ? ? ? ? ? ? 7 5
+
+? ? 3 4 ? ? ? ? ?
+
+? ? ? 2 ? ? 6 ? ?
+"""
+
+board = [["?" for _ in range(9)] for _ in range(9)]
+board[0][3] = 8
+board[0][5] = 1
+board[1][6] = 4
+board[1][7] = 3
+board[2][0] = 5
+board[3][4] = 7
+board[3][6] = 8
+board[4][6] = 1
+board[5][1] = 2
+board[5][4] = 3
+board[6][0] = 6
+board[6][7] = 7
+board[6][8] = 5
+board[7][2] = 3
+board[7][3] = 4
+board[8][3] = 2
+board[8][6] = 6
+unknownValues = [x for x in range(1,10)]
+print(unknownValues)
+
+for row in board:
+  print(row)
+
+"""1. Instantiate the problem."""
+
+from constraint import *
+sudoku = Problem()
+
+"""2. Create the variables"""
+
+for i in range(len(board)):
+  row = board[i]
+  #print("i = ", i)
+  for j in range(len(row)):
+    col = row[j]
+    #print("j = ", j)
+    if col == "?":
+      sudoku.addVariable((i,j), unknownValues)
     else:
-        # given number of empty slots
-        empties = 81 - num
-    # looping a randomized board for the amount of empty mubers
-    for p in sample(range(squares), empties):
-        # set nubers to 0 of the randomized board
-        board_tmp[p // side][p % side] = 0
+      print([col])
+      sudoku.addVariable((i,j), [col])
 
-    # returning the generated board
-    return board_tmp
+"""2. Create the constraints."""
 
+def getRowList(i):
+  ret = []
+  for j in range(9):
+    ret.append((i,j))
+  return ret
 
+def getColList(j):
+  ret = []
+  for i in range(9):
+    ret.append((i,j))
+  return ret
 
+#Here, we are hard-coding the boxes.
+def getBoxes():
+  ret = [[(0,0),(0,1),(0,2),(1,0),(1,1),(1,2),(2,0),(2,1),(2,2)],
+         [(3,0),(3,1),(3,2),(4,0),(4,1),(4,2),(5,0),(5,1),(5,2)],
+         [(6,0),(6,1),(6,2),(7,0),(7,1),(7,2),(8,0),(8,1),(8,2)],
+         [(0,3),(0,4),(0,5),(1,3),(1,4),(1,5),(2,3),(2,4),(2,5)],
+         [(3,3),(3,4),(3,5),(4,3),(4,4),(4,5),(5,3),(5,4),(5,5)],
+         [(6,3),(6,4),(6,5),(7,3),(7,4),(7,5),(8,3),(8,4),(8,5)],
+         [(0,6),(0,7),(0,8),(1,6),(1,7),(1,8),(2,6),(2,7),(2,8)],
+         [(3,6),(3,7),(3,8),(4,6),(4,7),(4,8),(5,6),(5,7),(5,8)],
+         [(6,6),(6,7),(6,8),(7,6),(7,7),(7,8),(8,6),(8,7),(8,8)]
+         ]
+  return ret
 
+from re import A
+boxes = getBoxes()
+for box in boxes:
+  sudoku.addConstraint(AllDifferentConstraint(), box)
+for i in range(9):
+  sudoku.addConstraint(AllDifferentConstraint(), getRowList(i))
+  sudoku.addConstraint(AllDifferentConstraint(), getColList(i))
 
-def generate_board(num):
-    bo = [[0 for x in range(9)] for y in range(9)]
-    for i in range(9):
-        for j in range(9):
-            bo[i][j] = 0
+"""Finally, get the solution"""
 
-    for i in range(num):
-        row = random.randrange(9)
-        col = random.randrange(9)
-        num = random.randrange(1, 10)
+solution = sudoku.getSolution()
+answer = [["?" for x in range(9)] for y in range(9)]
 
-        while not possible(bo, (row, col), num) or bo[row][col] != 0:
-            row = random.randrange(9)
-            col = random.randrange(9)
-            num = random.randrange(1, 10)
-        bo[row][col] = num
+print(solution)
+for var in solution:
+  answer[var[0]][var[1]] = solution[var]
 
-    return bo
-
-
-
-def print_board(bo):
-    # looping every line in the array
-    for i in range(len(bo)):
-        # printing line if the vertical "box" changes
-        if i % 3 == 0 and i != 0:
-            print("- - - - - - - - - - - - - ")
-        # looping every character in one line
-        for j in range(len(bo[0])):
-            # printing lines if the horizontal box changes
-            # printing each character with spaces except for the last
-            if j % 3 == 0 and j != 0:
-                print(" | ", end="")
-            if j == 8:
-                # last character is printed without spaces behind
-                print(bo[i][j])
-            else:
-                # printing each character with spaces
-                print(str(bo[i][j]) + " ", end="")
-    print("")
-
-
-def possible(bo, pos, num):
-    # checking row
-    for i in range(len(bo[0])):
-        if bo[pos[0]][i] == num and pos[1] != i:
-            # not possible
-            return False
-
-    # checking column
-    for i in range(len(bo)):
-        if bo[i][pos[1]] == num and pos[0] != i:
-            # not possible
-            return False
-
-    # checking square
-    box_x = pos[1] // 3
-    box_y = pos[0] // 3
-
-    for i in range(box_y * 3, box_y * 3 + 3):  # row
-        for j in range(box_x * 3, box_x * 3 + 3):  # col
-            if bo[i][j] == num and (i, j) != pos:
-                # not possible number
-                return False
-    # possible number
-    return True
-
-
-def next_empty(bo):
-    # searching for the next 0 on the board
-    for i in range(len(bo)):
-        # looping rows
-        for j in range(len(bo[0])):
-            # looping columns
-            if bo[i][j] == 0:
-                return i, j  # returning row and column
-
-
-def solve(bo):
-    # searching for next empty solt
-    slot = next_empty(bo)
-    if not slot:
-        # return True if there is no empty slot
-        return True
-    else:
-        row, col = slot
-    # looping number 1 to 9
-    for i in range(1, 10):
-        # check if the number is possible in this location
-        if possible(bo, (row, col), i):
-            # placing the number on the board
-            bo[row][col] = i
-
-            # starting recursion
-            if solve(bo):
-                # returns True when the previous returned True
-                # This will only activate if the board is full
-                return True
-
-            # resetting the changed value to 0
-            bo[row][col] = 0
-    return False
-
-
-# Fill your numbers in the board below or create a new array to solve the board you give.
-board = [
-    [0, 0, 0,   0, 0, 0,   0, 0, 0],
-    [0, 0, 0,   0, 0, 0,   0, 0, 0],
-    [0, 0, 0,   0, 0, 0,   0, 0, 0],
-
-    [0, 0, 0,   0, 0, 0,   0, 0, 0],
-    [0, 0, 0,   0, 0, 0,   0, 0, 0],
-    [0, 0, 0,   0, 0, 0,   0, 0, 0],
-
-    [0, 0, 0,   0, 0, 0,   0, 0, 0],
-    [0, 4, 0,   0, 0, 0,   0, 0, 0],
-    [0, 0, 0,   0, 0, 0,   0, 0, 0]
-]
-
-# use this function to generate a new board
-# comment and use the array above to solve manual preset boards.
-board = generate_board(0)
-
-
-# printing the unsolved board
-print("======solvable board=====")
-print_board(board)
-
-# solving the board
-solve(board)
-
-# printing the board
-print("======solved board=======")
-print_board(board)
+for i in range(9):
+  for j in range(9):
+    print(answer[i][j], end=" ")  #To make sure that we have the next number on the same row
+  print("") #print a new line
