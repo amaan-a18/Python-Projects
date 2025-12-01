@@ -25,10 +25,13 @@ Here’s a breakdown of what you’ve built so far:
 |---|---|
 | **Calculator (AI)** | A smarter calculator that can understand natural language expressions. |
 | **Captcha Validation** | Generates CAPTCHAs and validates user input. |
+| **Cryptarithmetic Constraint** | Solves alphametic puzzles using constraint programming. |
 | **Digital Clock** | Real-time digital clock built with a GUI. |
 | **Email ID Generator** | Automatically generates unique email IDs (for testing). |
+| **General CSP Solver** | Solves constraint satisfaction problems using variables, domains, and constraints. |
 | **Hang-man Game** | Classic hangman game in the console. |
 | **Link Verification** | Check if a URL is valid / reachable. |
+| **Magic Square Solver** | Generates a valid 4×4 magic square using constraint programming. |
 | **Number Guessing Game** | Guess the number game with feedback. |
 | **Password Generator** | Generates strong, random passwords. |
 | **QR Code Generator** | Create QR codes from text or URLs. |
