@@ -19,7 +19,6 @@ These are great for learning, portfolio-building, or just to play around with di
 
 ## 📁 Projects List
 
-Here’s a breakdown of what you’ve built so far:
 
 | Project | Description |
 |---|---|
